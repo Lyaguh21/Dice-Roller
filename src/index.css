@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+@theme {
+  --color-main-color: #263687;
+  --color-light-violet: #531e87;
+
+  --color-text-gray: #a6a9ca;
+
+  --radius-main: 8px;
+}
