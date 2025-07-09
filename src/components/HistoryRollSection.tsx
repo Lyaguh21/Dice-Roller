@@ -10,7 +10,7 @@ export default function HistoryRollSection() {
           История бросков
         </h3>
       </div>
-      <div className="flex gap-3 grow-1 flex-wrap">
+      <div className="flex gap-1.5 grow-1 flex-wrap">
         {historyRoll.slice(0, 4).map((el: any) => (
           <HistoryBoxTemplate dice={el.dice} result={el.result} />
         ))}
