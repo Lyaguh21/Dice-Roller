@@ -3,12 +3,13 @@ import { useRollDiceStore } from "../stores/RollDiceStore";
 
 export default function LogoSection() {
   const [cnt, setCnt] = useState<number>(0);
-  const { setSelectedDice } = useRollDiceStore();
+  const { setSelectedDice, setResultRoll } = useRollDiceStore();
 
   const handleClick = () => {
     setCnt(cnt + 1);
     if (cnt >= 5) {
       setSelectedDice(100);
+      setResultRoll(null);
     }
   };
 

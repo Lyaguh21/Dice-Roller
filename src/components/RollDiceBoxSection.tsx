@@ -4,7 +4,7 @@ import { useRollDiceStore } from "../stores/RollDiceStore";
 import { AnimatePresence, motion, useAnimation } from "motion/react";
 
 export default function RollDiceBoxSection() {
-  const { selectedDice, resultRoll } = useRollDiceStore();
+  const { selectedDice, resultRoll, setIsRoll, isRoll } = useRollDiceStore();
   const controls = useAnimation();
   const [result, setResult] = useState<null | number>(null);
 
@@ -12,6 +12,7 @@ export default function RollDiceBoxSection() {
     const currentControls = controls;
 
     const rollAnimation = async () => {
+      setIsRoll(true);
       try {
         await currentControls.stop();
 
@@ -35,6 +36,7 @@ export default function RollDiceBoxSection() {
         console.log("Анимация прервана", e);
       } finally {
         setResult(resultRoll);
+        setIsRoll(false);
       }
     };
 
