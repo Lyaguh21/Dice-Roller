@@ -7,7 +7,9 @@ export default function ButtonRollDice() {
   const handleRollDice = async () => {
     const newResult = Math.floor(Math.random() * selectedDice + 1);
     setResultRoll(newResult);
-    addToHistory({ result: newResult, dice: selectedDice });
+    setTimeout(() => {
+      addToHistory({ result: newResult, dice: selectedDice });
+    }, 1200);
   };
   return (
     <button

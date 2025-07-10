@@ -5,8 +5,10 @@ import RollDiceBoxSection from "./components/RollDiceBoxSection";
 
 import SelectDiceSection from "./components/SelectDiceSection";
 import ButtonRollDice from "./components/ui/ButtonRollDice";
+import { useRollDiceStore } from "./stores/RollDiceStore";
 
 function App() {
+  const { resultRoll } = useRollDiceStore();
   return (
     <div className="flex justify-center bg-gradient-to-b from-purple-900 via-blue-900 to-indigo-900">
       <div className=" min-h-screen px-7 max-w-[425px] w-screen">
@@ -15,6 +17,7 @@ function App() {
         <SelectDiceSection />
         <CountRollSection />
 
+        {/* {resultRoll} */}
         <RollDiceBoxSection />
         <ButtonRollDice />
         <HistoryRollSection />

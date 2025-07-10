@@ -4,9 +4,13 @@ import { useRollDiceStore } from "../stores/RollDiceStore";
 import { AnimatePresence, motion, useAnimation } from "motion/react";
 
 export default function RollDiceBoxSection() {
-  const { selectedDice, resultRoll, setIsRoll, isRoll } = useRollDiceStore();
+  const { selectedDice, resultRoll, setIsRoll } = useRollDiceStore();
   const controls = useAnimation();
   const [result, setResult] = useState<null | number>(null);
+
+  useEffect(() => {
+    setResult(selectedDice);
+  }, [selectedDice]);
 
   useEffect(() => {
     const currentControls = controls;
@@ -66,7 +70,7 @@ export default function RollDiceBoxSection() {
         text-white text-4xl font-bold
       `}
     >
-      {result ?? selectedDice}
+      {resultRoll === null ? selectedDice : result}
     </motion.div>
   );
 
