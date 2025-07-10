@@ -4,6 +4,12 @@ import "./index.css";
 import App from "./App.tsx";
 
 import { init, miniApp, viewport } from "@telegram-apps/sdk";
+const data = JSON.stringify({
+  eventType: "web_app_exit_fullscreen",
+  eventData: {
+    is_visible: true,
+  },
+});
 
 const initializeTelegramSDK = async () => {
   try {
@@ -11,7 +17,7 @@ const initializeTelegramSDK = async () => {
 
     if (miniApp.ready.isAvailable()) {
       await miniApp.ready();
-
+      window.parent.postMessage(data, "https://web.telegram.org");
       console.log("Mini App готово");
     }
 
@@ -23,15 +29,6 @@ const initializeTelegramSDK = async () => {
     console.error("Ошибка инициализации:", error);
   }
 };
-
-const data = JSON.stringify({
-  eventType: "web_app_exit_fullscreen",
-  eventData: {
-    is_visible: true,
-  },
-});
-
-window.parent.postMessage(data, "https://web.telegram.org");
 
 initializeTelegramSDK();
 
