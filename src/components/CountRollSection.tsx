@@ -1,8 +1,20 @@
+import { useEffect, useState } from "react";
 import { useRollDiceStore } from "../stores/RollDiceStore";
 import cn from "classnames";
 
 export default function CountRollSection() {
   const { resultRoll, selectedDice } = useRollDiceStore();
+  const [text, setText] = useState<number | null | string>();
+
+  useEffect(() => {
+    if (resultRoll !== null) {
+      setTimeout(() => {
+        setText(resultRoll);
+      }, 1200);
+    } else {
+      setText("-");
+    }
+  }, [resultRoll]);
 
   return (
     <div className="flex justify-center py-main font-bold ">
@@ -11,15 +23,15 @@ export default function CountRollSection() {
           className={cn(
             " text-[40px] leading-[40px]",
             `${
-              resultRoll === selectedDice
+              text === selectedDice
                 ? "text-green-500"
-                : resultRoll === 1
+                : text === 1
                 ? "text-red-600"
                 : "text-white"
             }`
           )}
         >
-          {resultRoll !== null ? resultRoll : "-"}
+          {text}
         </h1>
       </div>
     </div>

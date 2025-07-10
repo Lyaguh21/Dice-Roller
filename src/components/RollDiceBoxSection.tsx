@@ -1,30 +1,78 @@
+import { useEffect, useState } from "react";
 import { useRollDiceStore } from "../stores/RollDiceStore";
+
+import { AnimatePresence, motion, useAnimation } from "motion/react";
 
 export default function RollDiceBoxSection() {
   const { selectedDice, resultRoll } = useRollDiceStore();
+  const controls = useAnimation();
+  const [result, setResult] = useState<null | number>(null);
+
+  useEffect(() => {
+    const currentControls = controls;
+
+    const rollAnimation = async () => {
+      try {
+        await currentControls.stop();
+
+        await currentControls.start({
+          x: [0, 40, -30, -5, 0], // Движение вправо-влево
+          y: [-40, 30, -10, 0, 0], // Эффект падения
+          rotateZ: [0, 360 * 3],
+          scale: [1, 1.1, 1],
+          transition: {
+            duration: 1.2,
+            ease: [0.2, 0.8, 0.4, 1],
+          },
+        });
+
+        await currentControls.start({
+          x: 0,
+          y: 0,
+          transition: { duration: 0.3 },
+        });
+      } catch (e) {
+        console.log("Анимация прервана", e);
+      } finally {
+        setResult(resultRoll);
+      }
+    };
+
+    if (resultRoll !== null) {
+      rollAnimation();
+    }
+
+    return () => {
+      currentControls.stop();
+    };
+  }, [resultRoll]);
+
+  const DiceComponent = () => (
+    <motion.div
+      key={`dice-${selectedDice}-${resultRoll}`}
+      animate={controls}
+      initial={{ rotateZ: 0, scale: 1 }}
+      exit={{ opacity: 0 }}
+      className={`
+        ${selectedDice === 20 ? "hexagon" : ""}
+        ${selectedDice === 12 ? "octagon" : ""}
+        ${selectedDice === 10 ? "rhombus" : ""}
+        ${selectedDice === 8 || selectedDice === 4 ? "triangle" : ""}
+        ${selectedDice === 6 ? "square" : ""}
+        ${selectedDice === 100 ? "d100" : ""}
+        flex items-center justify-center
+        text-white text-4xl font-bold
+      `}
+    >
+      {result ?? selectedDice}
+    </motion.div>
+  );
+
   return (
-    <div className="h-[200px] flex justify-center items-center w-full rounded-main bg-white/5 backdrop-blur-sm border border-white/20 ">
-      {selectedDice === 20 && (
-        <div className="hexagon">{resultRoll ?? selectedDice}</div>
-      )}
-      {selectedDice === 12 && (
-        <div className="octagon">{resultRoll ?? selectedDice}</div>
-      )}
-      {selectedDice === 10 && (
-        <div className="rhombus">{resultRoll ?? selectedDice}</div>
-      )}
-      {selectedDice === 8 && (
-        <div className="triangle">{resultRoll ?? selectedDice}</div>
-      )}
-      {selectedDice === 6 && (
-        <div className="square">{resultRoll ?? selectedDice}</div>
-      )}
-      {selectedDice === 4 && (
-        <div className="triangle">{resultRoll ?? selectedDice}</div>
-      )}
-      {selectedDice === 100 && (
-        <div className="d100">{resultRoll ?? selectedDice}</div>
-      )}
+    <div className="h-[200px] flex justify-center items-center w-full rounded-main bg-white/5 backdrop-blur-sm border border-white/20">
+      <AnimatePresence mode="wait">
+        <DiceComponent />
+      </AnimatePresence>
     </div>
   );
 }
