@@ -17,7 +17,7 @@ export default function LogoSection() {
     <>
       <div className="flex w-full justify-center pt-main">
         <img
-          src="src\assets\d20.svg"
+          src="/images/d20.svg"
           className="size-24 active:scale-95 "
           onClick={handleClick}
         />
