@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 
-import { init, miniApp } from "@telegram-apps/sdk";
+import { init, miniApp, viewport } from "@telegram-apps/sdk";
 
 const initializeTelegramSDK = async () => {
   try {
@@ -11,12 +11,27 @@ const initializeTelegramSDK = async () => {
 
     if (miniApp.ready.isAvailable()) {
       await miniApp.ready();
+
       console.log("Mini App готово");
+    }
+
+    if (viewport.requestFullscreen.isAvailable()) {
+      await viewport.requestFullscreen();
+      viewport.isFullscreen(); // true
     }
   } catch (error) {
     console.error("Ошибка инициализации:", error);
   }
 };
+
+const data = JSON.stringify({
+  eventType: "web_app_exit_fullscreen",
+  eventData: {
+    is_visible: true,
+  },
+});
+
+window.parent.postMessage(data, "https://web.telegram.org");
 
 initializeTelegramSDK();
 
