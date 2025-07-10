@@ -10,3 +10,128 @@
 
   --spacing-main: 16px;
 }
+
+/* d20 */
+.hexagon {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 90px;
+  height: 90px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: xx-large;
+
+  clip-path: polygon(
+    50% 0%,
+    /* Верхняя вершина */ 93.3% 25%,
+    /* Верхняя правая */ 93.3% 75%,
+    /* Нижняя правая */ 50% 100%,
+    /* Нижняя вершина */ 6.7% 75%,
+    /* Нижняя левая */ 6.7% 25% /* Верхняя левая */
+  );
+}
+
+/* d12 */
+.octagon {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 80px;
+  height: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: xx-large;
+
+  clip-path: polygon(
+    30% 0%,
+    70% 0%,
+    100% 30%,
+    100% 70%,
+    70% 100%,
+    30% 100%,
+    0% 70%,
+    0% 30%
+  );
+}
+
+/* d10 */
+.rhombus {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 90px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: xx-large;
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+}
+
+/* d8 */
+.triangle {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 90px;
+  height: 78px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: xx-large;
+  padding-top: 20px;
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+/* d6 */
+.square {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 80px;
+  height: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: xx-large;
+}
+
+.d100 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  width: 100px;
+  height: 100px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: xx-large;
+
+  clip-path: polygon(
+    50% 0%,
+    /* 0° */ 75% 5%,
+    /* 22.5° */ 93.3% 18.3%,
+    /* 45° */ 98.3% 36.6%,
+    /* 67.5° */ 100% 50%,
+    /* 90° */ 98.3% 63.4%,
+    /* 112.5° */ 93.3% 81.7%,
+    /* 135° */ 75% 95%,
+    /* 157.5° */ 50% 100%,
+    /* 180° */ 25% 95%,
+    /* 202.5° */ 6.7% 81.7%,
+    /* 225° */ 1.7% 63.4%,
+    /* 247.5° */ 0% 50%,
+    /* 270° */ 1.7% 36.6%,
+    /* 292.5° */ 6.7% 18.3%,
+    /* 315° */ 25% 5% /* 337.5° */
+  );
+}

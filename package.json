@@ -13,6 +13,7 @@
     "@tailwindcss/vite": "^4.1.11",
     "@telegram-apps/sdk": "^3.11.4",
     "classnames": "^2.5.1",
+    "motion": "^12.23.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "tailwindcss": "^4.1.11",
