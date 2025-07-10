@@ -11,16 +11,6 @@
   --spacing-main: 16px;
 }
 
-html,
-body,
-#root {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
 /* d20 */
 .hexagon {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
