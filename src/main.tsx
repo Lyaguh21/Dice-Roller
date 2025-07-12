@@ -5,7 +5,7 @@ import App from "./App.tsx";
 
 import { init, miniApp, viewport } from "@telegram-apps/sdk";
 const data = JSON.stringify({
-  eventType: "web_app_exit_fullscreen",
+  eventType: "web_app_request_fullscreen",
   eventData: {
     is_visible: true,
   },
@@ -23,7 +23,7 @@ const initializeTelegramSDK = async () => {
 
     if (viewport.requestFullscreen.isAvailable()) {
       await viewport.requestFullscreen();
-      viewport.isFullscreen(); // true
+      viewport.isFullscreen();
     }
   } catch (error) {
     console.error("Ошибка инициализации:", error);

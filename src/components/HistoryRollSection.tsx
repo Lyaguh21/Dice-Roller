@@ -12,7 +12,11 @@ export default function HistoryRollSection() {
       </div>
       <div className="flex gap-1.5 grow-1 flex-wrap">
         {historyRoll.slice(0, 4).map((el: any) => (
-          <HistoryBoxTemplate dice={el.dice} result={el.result} />
+          <HistoryBoxTemplate
+            key={historyRoll.indexOf(el)}
+            dice={el.dice}
+            result={el.result}
+          />
         ))}
       </div>
     </>
