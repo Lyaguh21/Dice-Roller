@@ -1,6 +1,7 @@
 import { useRollDiceStore } from "../stores/RollDiceStore";
 import { AnimatePresence, motion, useAnimation } from "motion/react";
 import cn from "classnames";
+import { useEffect, useMemo, useState } from "react";
 
 export default function RollDiceBoxSection() {
   const {
@@ -12,11 +13,23 @@ export default function RollDiceBoxSection() {
     isRoll,
   } = useRollDiceStore();
   const controls = useAnimation();
+  const [display, setDisplay] = useState<null | number>(resultRoll);
+
+  useEffect(() => {
+    setDisplay(resultRoll);
+  }, [resultRoll]);
 
   const handleRollDice = async () => {
     setIsRoll(true);
 
-    const newResult = Math.floor(Math.random() * selectedDice + 1);
+    let intervalId: number | null = null;
+
+    intervalId = window.setInterval(() => {
+      const randomNumber = Math.floor(Math.random() * selectedDice) + 1;
+      setDisplay(randomNumber);
+    }, 400);
+
+    const finalResult = Math.floor(Math.random() * selectedDice) + 1;
 
     try {
       await controls.stop();
@@ -39,20 +52,27 @@ export default function RollDiceBoxSection() {
       });
     } catch (e) {
       console.log("Анимация прервана", e);
-    }
+    } finally {
+      if (intervalId !== null) {
+        clearInterval(intervalId);
+      }
+      setTimeout(() => {
+        setDisplay(finalResult);
+        setResultRoll(finalResult);
+        addToHistory({ result: finalResult, dice: selectedDice });
+      }, 200);
 
-    setResultRoll(newResult);
-    addToHistory({ result: newResult, dice: selectedDice });
-    setIsRoll(false);
+      setIsRoll(false);
+    }
   };
 
-  const DiceComponent = () => (
-    <motion.div
-      key={`dice-${selectedDice}-${resultRoll}`}
-      animate={controls}
-      initial={{ rotateZ: 0, scale: 1 }}
-      exit={{ opacity: 0 }}
-      className={`
+  const diceElement = useMemo(() => {
+    return (
+      <motion.div
+        animate={controls}
+        initial={{ rotateZ: 0, scale: 1 }}
+        exit={{ opacity: 0 }}
+        className={`
         ${selectedDice === 20 ? "hexagon" : ""}
         ${selectedDice === 12 ? "octagon" : ""}
         ${selectedDice === 10 ? "rhombus" : ""}
@@ -62,17 +82,16 @@ export default function RollDiceBoxSection() {
         flex items-center justify-center
         text-white text-4xl font-bold
       `}
-    >
-      {resultRoll === null ? selectedDice : resultRoll}
-    </motion.div>
-  );
+      >
+        {display === null ? selectedDice : display}
+      </motion.div>
+    );
+  }, [selectedDice, controls, display]);
 
   return (
     <>
       <div className="h-[200px] flex justify-center items-center w-full rounded-main bg-white/5 backdrop-blur-sm border border-white/20">
-        <AnimatePresence mode="wait">
-          <DiceComponent />
-        </AnimatePresence>
+        <AnimatePresence mode="wait">{diceElement}</AnimatePresence>
       </div>
 
       <button
