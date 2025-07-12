@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useRollDiceStore } from "../stores/RollDiceStore";
 import cn from "classnames";
 
