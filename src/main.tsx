@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 
-import { init, miniApp, viewport } from "@telegram-apps/sdk";
+import { init, miniApp } from "@telegram-apps/sdk";
 
 const initializeTelegramSDK = async () => {
   try {
@@ -11,17 +11,15 @@ const initializeTelegramSDK = async () => {
 
     if (miniApp.ready.isAvailable()) {
       await miniApp.ready();
+      console.log("Mini App готово");
     }
 
-    if (viewport.requestFullscreen.isAvailable()) {
-      await viewport.requestFullscreen();
-      console.log("Запрошен полноэкранный режим");
-    } else {
-      const data = JSON.stringify({
-        eventType: "web_app_request_fullscreen",
-      });
-      window.parent.postMessage(data, "https://web.telegram.org");
-    }
+    const data = JSON.stringify({
+      eventType: "web_app_request_fullscreen",
+    });
+
+    window.parent.postMessage(data, "https://web.telegram.org");
+    console.log("Запрос на полноэкранный режим отправлен");
   } catch (error) {
     console.error("Ошибка инициализации:", error);
   }
