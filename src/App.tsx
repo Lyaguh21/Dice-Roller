@@ -4,7 +4,6 @@ import LogoSection from "./components/LogoSection";
 import RollDiceBoxSection from "./components/RollDiceBoxSection";
 
 import SelectDiceSection from "./components/SelectDiceSection";
-import ButtonRollDice from "./components/ui/ButtonRollDice";
 
 function App() {
   return (
@@ -16,7 +15,7 @@ function App() {
         <CountRollSection />
 
         <RollDiceBoxSection />
-        <ButtonRollDice />
+
         <HistoryRollSection />
       </div>
     </div>
